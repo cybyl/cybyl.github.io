@@ -1,4 +1,4 @@
-{
+{ "@context": {
   "@base": "http://www.sap.com/samhengi/s4/",
   "xsd": "http://www.w3.org/2001/XMLSchema#",
   "as": "https://www.w3.org/ns/activitystreams#",
@@ -44,4 +44,4 @@
   "sitAddress": "s4:supplierAddress",
   "suppliername": "s4:supplierName",
   "supplier": "s4:supplier"
-}
+}}
