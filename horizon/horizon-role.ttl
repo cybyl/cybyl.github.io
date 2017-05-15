@@ -1,0 +1,49 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix horizon: <http://www.sap.com/ns/horizon/core#> .
+@prefix horizon-role: <http://www.sap.com/ns/horizon/role#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix as: <http://activitystrea.ms/spec/2.0/#> .
+
+# Core basic activity roles
+
+<http://www.sap.com/ns/horizon/role> a skos:ConceptScheme ;
+    dcterms:title "Horizon Basic Activity Roles concept scheme";
+    dcterms:description """<This vocabulary provides the core interaction roles contemplated within Horizon. The taxonomy provided here is a minimal reference one. Extensions or replacements for this could be defined an used within applications in the very same way by refining Role or creating further SKOS concept schemes. """@en ;
+    dcterms:modified "2014-07-04"^^xsd:date, "2014-07-05"^^xsd:date ;
+    vann:preferredNamespaceUri "http://www.sap.com/ns/horizon/roles#";
+    vann:preferredNamespacePrefix "horizon-role";
+    skos:prefLabel "Basic Horizon Roles"@en ;
+    skos:hasTopConcept horizon-role:participant ;
+    dcterms:creator horizon:tleidig;
+    owl:versionInfo "0.1" .
+
+horizon-role:observer a horizon:Role ;
+    rdfs:label "Observer"@en ;
+    skos:prefLabel "Observer"@en ;
+    skos:definition """An Observer within an Activity is a third party entity that does not take any active role within the interaction. Observers are typically monitoring the actual activities in order to ensure that best practices or regulations are followed (e.g., Regulators, Quality Assurance Departments)."""@en ;
+    skos:topConceptOf <http://www.sap.com/ns/horizon/role>;
+    skos:broader horizon-role:participant;
+    skos:inScheme <http://www.sap.com/ns/horizon/role>.
+	
+horizon-role:participant a horizon:Role ;
+    rdfs:label "Participant"@en ;
+    skos:prefLabel "Participant"@en ;
+    skos:definition """Participant of an Activity is a third party entity participating in an activity but not the actor. """@en ;
+    skos:topConceptOf <http://www.sap.com/ns/horizon/role>;
+    skos:narrower horizon-role:observer;
+    skos:inScheme <http://www.sap.com/ns/horizon/role>.
+
+# more roles to come <mediator>, <initiator>, <receiver>, ... ?
+

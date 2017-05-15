@@ -1,0 +1,25 @@
+@prefix horizon: <http://www.sap.com/ns/horizon/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix horizon-col: <http://www.sap.com/ns/horizon/collaboration#> .
+
+horizon-col:PhoneCall a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/collaboration>;
+    rdfs:subClassOf horizon:Event;
+    dcterms:description """An phone call is an event comprising two or more participants""";
+    rdfs:label "Phone Call"@en.
+    
+horizon-col:participant a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/collaboration>;
+    rdfs:label	"participant"@en;
+    rdfs:domain horizon-col:PhoneCall;
+    rdfs:range	horizon:Person;
+    rdfs:comment "The participants of a call".
+
+horizon-col:caller a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/collaboration>;
+    rdfs:label	"caller"@en;
+    rdfs:domain horizon-col:PhoneCall;
+    rdfs:range	horizon:Person;
+    rdfs:comment "The caller of a phone call".

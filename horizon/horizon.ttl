@@ -1,0 +1,371 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix horizon: <http://www.sap.com/ns/horizon/core#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+<http://www.sap.com/ns/horizon/core>
+    dcterms:title "Horizon Core Vocabulary"^^xsd:string;
+    dcterms:description """<p>This vocabulary provides the core module of Situative User Interaction. It covers the main generic concepts and properties characterising events, activities, and state. It is leaving more specific aspects regarding some particular dimensions such as user interfaces, application specific terms to dedicated supplemental vocabularies. </p>""";
+    dcterms:modified "2014-07-08"^^xsd:date;
+    vann:preferredNamespaceUri "http://www.sap.com/ns/horizon/core#";
+    vann:preferredNamespacePrefix "horizon";
+    foaf:page <https://github.wdf.sap.corp/d029752/horizon-sce>;
+    dcterms:creator horizon:tleidig;
+    dcterms:contributor horizon:pspiess, horizon:kmanske, horizon:aspriestersbach, horizon:fprobst, horizon:asalmen .
+
+horizon:tleidig a foaf:Person;
+    foaf:name "Torsten Leidig";
+    foaf:mbox <mailto:torsten.leidig@sap.com> .
+
+horizon:pspiess a foaf:Person;
+    foaf:name "Patrik Spiess";
+    foaf:mbox <mailto:patrik.spiess@sap.com> .
+
+horizon:kmanske a foaf:Person;
+    foaf:name "Knut Manske";
+    foaf:mbox <mailto:knut.manske@sap.com> .
+
+horizon:aspriestersbach a foaf:Person;
+    foaf:name "Axel Spriestersbach";
+    foaf:mbox <mailto:axel.spriestersbach@sap.com> .
+
+horizon:fprobst a foaf:Person;
+    foaf:name "Florian Probst";
+    foaf:mbox <mailto:florian.probst@sap.com> .
+
+horizon:asalmen a foaf:Person;
+    foaf:name "Angelika Salmen";
+    foaf:mbox <mailto:angelika.salmen@sap.com> .
+
+# Documents
+
+horizon:Document a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf foaf:Document, sioc:Item ;
+    dcterms:description """A placeholder for documents, websites, blogs, ... """;
+    rdfs:label "Document"@en.
+
+# Person
+
+horizon:Person a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf foaf:Person, gr:Individual, vcard:Individual;
+    dcterms:description """A person """;
+    rdfs:label "Person"@en.
+
+horizon:userID a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"userId"@en;
+    rdfs:domain	horizon:Person;
+    rdfs:range	xsd:string;
+    rdfs:comment "The persons user ID in a company IT system".
+
+# Temporal entities Event, Activity, State, Phenomena, ...?
+
+# Events
+
+horizon:Event a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf time:TemporalEntity;
+    dcterms:description """An Event is occurring in time and space and can have participants """;
+    rdfs:label "Event"@en.
+
+horizon:Meeting a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:Event;
+    dcterms:description """An Meeting is an event comprising participants""";
+    rdfs:label "Meeting"@en.
+
+horizon:participant a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"participant"@en;
+    rdfs:domain horizon:Meeting;
+    rdfs:range	horizon:Person;
+    rdfs:comment "The participants of a meeting".
+
+horizon:location a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"has location"@en;
+    rdfs:domain  horizon:Event ;
+    rdfs:range	horizon:Location;
+    rdfs:comment "The location of an event".
+
+# Activities
+
+horizon:Activity a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf time:TemporalEntity;
+    dcterms:description """Something that is done by an agent or participant in time""" ;
+    rdfs:label "Activity"@en.
+
+horizon:Agent a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    dcterms:description """Some active actor (person or automated process) """ ;
+    rdfs:label "Agent"@en.
+
+horizon:agent a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"agent"@en;
+    rdfs:domain	horizon:Activity;
+    rdfs:range	horizon:Agent;
+    rdfs:comment "The actor of an activity".
+
+horizon:object a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"object"@en;
+    rdfs:domain	horizon:Activity;
+    rdfs:range	rdfs:Resource;
+    rdfs:comment """A something that is acted upon (produced, handled, modified, ...) by the event. This property is not intended to be used by applications directly. It is rather assumed that sub properties will be defined""".
+
+horizon:role a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"role"@en;
+    rdfs:domain	horizon:Activity;
+    rdfs:range	horizon:Role;
+    rdfs:comment "The role the agent is acting with".
+
+horizon:instrument a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"instrument"@en;
+    rdfs:domain	horizon:Activity;
+    rdfs:range	rdfs:Resource;
+    rdfs:comment "The instrument or tool the agent is using in the activity".
+
+horizon:result a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"result"@en;
+    rdfs:domain	horizon:Activity;
+    rdfs:range	rdfs:Resource;
+    rdfs:comment """Specifies the result of the activity. For instance, if a particular action results in the creation of a new resource, the \"result\" property can be used to describe that new resource.""" .
+
+# Specific Activity types
+
+horizon:Move a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:Activity;
+    dcterms:description """An actor moves to a specific location .""" ;
+    rdfs:label "Move"@en.
+
+horizon:fromLocation a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"fromLocation"@en;
+    rdfs:subPropertyOf horizon:object;
+    rdfs:domain	horizon:Move;
+    rdfs:range	horizon:Location;
+    rdfs:comment """The \"From\" location of the Move action.""".
+
+horizon:toLocation a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"toLocation"@en;
+    rdfs:subPropertyOf horizon:object;
+    rdfs:domain	horizon:Move;
+    rdfs:range	horizon:Location;
+    rdfs:comment """The \"To\" location of the Move action.""".
+
+horizon:Use a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:Activity;
+    dcterms:description """An agent uses an object  """ ;
+    rdfs:label "Use"@en.
+
+horizon:Participate a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:Activity;
+    dcterms:description """An agent participates in something with a role """ ;
+    rdfs:label "Participate"@en.
+
+horizon:Create a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:Activity;
+    dcterms:description """An agent creates something """ ;
+    rdfs:label "Create"@en.
+
+# States
+
+horizon:State a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf time:TemporalEntity;
+    dcterms:description """Something that is done by an agent or participant in time""" ;
+    rdfs:label "State"@en.
+
+horizon:subject a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"subject"@en;
+    rdfs:domain  horizon:State ;
+    rdfs:range	rdfs:Resource;
+    rdfs:comment "The subject of the assignment".
+
+horizon:value a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"value"@en;
+    rdfs:domain  horizon:State ;
+    rdfs:range	rdfs:Resource;
+    rdfs:comment "The state property a subject is assigned to. Can be refined by a subProperty for application domain".
+
+horizon:qualitativeProperty a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subPropertyOf horizon:value;
+    rdfs:label	"qualitativeProperty"@en;
+    rdfs:domain  horizon:State ;
+    rdfs:range	horizon:QualitativeValue;
+    rdfs:comment "The state property a subject is assigned to. Can be refined by a subProperty for application domain".
+
+horizon:quantitativeProperty a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subPropertyOf horizon:value;
+    rdfs:label	"quantitativeProperty"@en;
+    rdfs:domain  horizon:State ;
+    rdfs:range	horizon:QuantitativeValue;
+    rdfs:comment "The state property a subject is assigned to. Can be refined by a subProperty for application domain".
+
+horizon:QualitativeOrQuantitativeValue a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    dcterms:description """The value the state describes.""" ;
+    rdfs:label "QualitativeOrQuantitativeValue"@en.
+
+horizon:QualitativeValue a rdfs:Class ;
+    rdfs:subClassOf horizon:QualitativeOrQuantitativeValue ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    dcterms:description """A qualitative value """ ;
+    rdfs:label "QualitativeValue"@en.
+
+horizon:QuantitativeValue a rdfs:Class ;
+    rdfs:subClassOf horizon:QualitativeOrQuantitativeValue ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    dcterms:description """A quantitative value """ ;
+    rdfs:label "Quantitative value"@en.
+
+horizon:quantity a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"value"@en;
+    rdfs:domain  horizon:QuantitativeValue ;
+    rdfs:range	rdfs:decimal;
+    rdfs:comment "The literal quantitative value".
+
+horizon:unitOfMeasurement a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label	"unitOfMeasurement"@en;
+    rdfs:domain  horizon:QuantitativeValue ;
+    rdfs:range	xsd:string;
+    rdfs:comment "The unit of measurement for a quantitative value".
+
+# Subclasses of State
+
+horizon:Location a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:State;
+    dcterms:description """The location of an agent. The location can be a geo coordinate, a name for a place, region or indoor location """;
+    rdfs:label "Location"@en.
+
+horizon:Assignment a rdfs:Class ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf horizon:State;
+    dcterms:description """An assignment is only valid for a period of time""" ;
+    rdfs:label "Assignment"@en.
+
+horizon:withRole a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subPropertyOf horizon:qualitativeProperty;
+    rdfs:label	"withRole";
+    rdfs:domain  horizon:Assignment ;
+    rdfs:range	horizon:Role;
+    rdfs:comment "The role of the assignment".
+
+# Roles
+
+horizon:Role a rdfs:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label "Role"@en ;
+    rdfs:comment """The Roles that an agent may play in an activity. One may define as many Roles as necessary by defining subclasses of Role or by creating SKOS concept schemes."""@en .
+
+# Projects
+
+horizon:Project a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:subClassOf time:TemporalEntity, foaf:Project ;
+    dcterms:description """A project """;
+    rdfs:label "Project"@en.
+
+# Tasks
+
+horizon:Task a rdfs:Issue;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    dcterms:description """A piece of work as part of ones duties. Something to be done, e.g. for bug or issue tracking, to-do-list management, action items, goal depednency, and so on.""";
+    rdfs:label "Task"@en.
+
+horizon:cause a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:domain horizon:Event;
+    rdfs:range horizon:Task ;
+    rdfs:label "cause"@en .
+
+horizon:causedBy a rdf:Property;
+        rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+        rdfs:domain horizon:Issue;
+        rdfs:range horizon:Event ;
+        rdfs:label "causedBy"@en .
+
+horizon:assignedTo a rdf:Property;
+        rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+        rdfs:domain horizon:Issue;
+        rdfs:range horizon:person ;
+        rdfs:label "assignedTo"@en .
+
+horizon:reporter a rdf:Property;
+        rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+        rdfs:domain horizon:Issue;
+        rdfs:range horizon:Agent ;
+        rdfs:label "reporter"@en .
+
+
+horizon:Issue a rdfs:Class;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    dcterms:description """Issue : another name for task""";
+    rdfs:label "Issue"@en.
+
+# domain vocabulary can extend the Task classes.
+
+horizon:dependent a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label "dependent"@en;
+    rdfs:domain horizon:Task;
+    rdfs:range horizon:Task;
+    rdfs:comment """Another task upon which this depends, in the sense that
+       this task cannot be completed without that task being done.
+       You can't use this for dependencies on anything other than other tasks.
+       (Note the US spelling of the URI. In the UK, a dependant is a something
+       which is dependent on somehing else.)""".
+
+horizon:dateDue a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:domain horizon:Task;
+    rdfs:range xsd:dateTime;
+    rdfs:label "due date"@en;
+    rdfs:comment """The date this task is due.""".
+
+horizon:dateCreated a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:domain horizon:Task;
+    rdfs:range xsd:dateTime;
+    rdfs:label "dateCreated"@en;
+    rdfs:comment """The date this task is created.""".
+
+horizon:about a rdf:Property;
+    rdfs:isDefinedBy <http://www.sap.com/ns/horizon/core>;
+    rdfs:label "about"@en;
+    rdfs:domain rdfs:Resource;
+    rdfs:range rdfs:Resource;
+    rdfs:comment """Something a resource is about. E.g. event, activity, etc. """.
