@@ -1,0 +1,83 @@
+module.exports = {
+  "@base": "http://www.sap.com/samhengi/",
+  "xsd": "http://www.w3.org/2001/XMLSchema#",
+  "samhengi": "http://www.sap.com/ns/samhengi#",
+  "horizon": "http://www.sap.com/ns/horizon/core#",
+  "schema": "http://schema.org/",
+  "id": "@id",
+  "user": "horizon:userID",
+  "name": "schema:name",
+  "exchange": "samhengi:exchange",
+  "symbol": "samhengi:symbol",
+  "criteria": "samhengi:criteria",
+  "operator": "samhengi:operator",
+  "stocks": "samhengi:stocks",
+  "tweets": "samhengi:tweets",
+  "situationDescription": "samhengi:situationDescription",
+  "topic": "samhengi:topic",
+  "situationDescriptions": {
+    "@id": "samhengi:situationDescriptions",
+    "@container": "@set"
+  },
+  "about": "horizon:about",
+  "user": "horizon:user",
+  "assignedTo": "horizon:assignedTo",
+  "dateCreated": "horizon:dateCreated",
+  "Issue": "horizon:Issue",
+  "StockAnomaly": "samhengi:StockAnomaly",
+  "TweetAnomaly": "samhengi:TweetAnomaly",
+  "change": "samhengi:change",
+  "period": { "@id": "samhengi:period",
+              "@type": "xsd:duration"
+            },
+  "every": { "@id": "samhengi:every",
+             "@type": "xsd:duration"
+           },
+  "topics": {
+    "@id": "samhengi:topics",
+    "@container": "@set"
+  },
+  "periodNumber": { "@id": "samhengi:periodNumber",
+                    "@type": "xsd:integer"
+                  },
+  "periodUnit": { "@id": "samhengi:periodUnit",
+                  "@type": "xsd:integer"
+                },
+  "tweetNumber": { "@id": "samhengi:tweetNumber",
+                   "@type": "xsd:integer"
+                 },
+  "tweetOperator": "samhengi:tweetOperator",
+  "sentiments": "samhengi:sentiments",
+  "threshold": {
+    "@id": "samhengi:threshold",
+    "@type": "xsd:double"
+  },
+  "selectedSentiments": {
+    "@id": "samhengi:selectedSentiments",
+    "@container": "@set"
+  },
+  "enabled": { "@id": "samhengi:enabled",
+               "@type": "xsd:boolean"
+             },
+  "stockChangeDirection": "samhengi:stockChangeDirection",
+  "stockChangeAmount": { "@id": "samhengi:stockChangeAmount",
+                         "@type": "xsd:double"
+                       },
+  "stockChangeUnit": "samhengi:stockChangeUnit",
+  "hashtags": {
+    "@id": "samhengi:hashtags",
+    "@container": "@set"
+  },
+  "notificationChannels": {
+    "@id": "samhengi:notificationChannels",
+    "@container": "@set"
+  },
+  "keywords": {
+    "@id": "samhengi:keywords",
+    "@container": "@set"
+  },
+  "users": {
+    "@id": "samhengi:users",
+    "@container": "@set"
+  }
+}

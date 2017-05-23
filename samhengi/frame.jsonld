@@ -1,0 +1,43 @@
+module.exports = {
+  "@context": {
+    "@base": "http://www.sap.com/samhengi/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "samhengi": "http://www.sap.com/ns/samhengi#",
+    "horizon": "http://www.sap.com/ns/horizon/core#",
+    "schema": "http://schema.org/",
+    "samhengi:situationDescriptions": {
+      "@container": "@set"
+    },
+    "samhengi:period": {
+      "@type": "xsd:duration"
+    },
+    "samhengi:every": {
+      "@type": "xsd:duration"
+    },
+    "samhengi:topics": {
+      "@container": "@set"
+    },
+    "samhengi:periodNumber": {
+      "@type": "xsd:integer"
+    },
+    "samhengi:periodUnit": {
+      "@type": "xsd:integer"
+    },
+    "samhengi:tweetNumber": {
+      "@type": "xsd:integer"
+    },
+    "samhengi:enabled": {
+       "@type": "xsd:boolean"
+    },
+    "samhengi:stockChangeAmount": {
+      "@type": "xsd:double"
+    },
+    "samhengi:tweetCount": {
+      "@type": "xsd:integer"
+    },
+    "samhengi:threshold": {
+      "@type": "xsd:double"
+    }
+ },
+ "samhengi:topics": "@embed"
+};
